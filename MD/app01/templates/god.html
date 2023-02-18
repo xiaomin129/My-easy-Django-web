@@ -1,0 +1,51 @@
+﻿{% extends 'layout2.html' %}
+
+{% block content %}
+<div>
+    <font size="6">&nbsp&nbsp&nbsp&nbsp购买记录</font>
+</div>
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>购买编号</th>
+            <th>客户姓名</th>
+            <th>购买药品</th>
+            <th>购买时间</th>
+            <th>客户电话</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in queryset %}
+        <tr>
+            <td>{{obj.id}}</td>
+            <td>{{obj.name}}</td>
+            <td>{{obj.drugs}}</td>
+            <td>{{obj.time}}</td>
+            <td>{{obj.phone}}</td>
+            <td>&nbsp</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

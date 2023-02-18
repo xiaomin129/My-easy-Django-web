@@ -1,0 +1,59 @@
+﻿{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <font size="6">&nbsp&nbsp&nbsp&nbsp药品列表</font>
+</div>
+
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>药品编号</th>
+            <th>药品名</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>单位</th>
+            <th>处方药/非处方药</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in queryset %}
+        <tr>
+            <td>{{obj.id}}</td>
+            <td>{{obj.name}}</td>
+            <td>{{obj.price}}</td>
+            <td>{{obj.num}}</td>
+            <td>{{obj.unit}}</td>
+            {% if obj.classification %}
+            <td>处方药</td>
+            {% else %}
+            <td>非处方药</td>
+            {% endif %}
+            <td>&nbsp</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

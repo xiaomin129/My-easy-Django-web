@@ -1,0 +1,78 @@
+﻿{% extends 'layout.html' %}
+
+{% block content %}
+
+<form class="layui-form" method="post" action="">
+    {% csrf_token %}
+    <div>
+        <font size="6">&nbsp&nbsp&nbsp&nbsp进货登记</font>
+    </div>
+    <div>&nbsp</div><br />
+    <div class="layui-form-item">
+        <label class="layui-form-label">药品名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入药品名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">价格</label>
+        <div class="layui-input-inline">
+            <input type="number" step="0.01" min="0" name="price" required lay-verify="required" placeholder="请输入最多两位小数数字" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">请输入药品价格</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数量</label>
+        <div class="layui-input-inline">
+            <input type="number" min="0" name="num" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">请输入药品数量</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单位</label>
+        <div class="layui-input-block">
+            <select name="unit" lay-verify="required">
+                <option value="盒">盒</option>
+                <option value="支">支</option>
+                <option value="瓶">瓶</option>
+                <option value="包">包</option>
+                <option value="片">片</option>
+                <option value="颗">颗</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">药品类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="classification" value="1" title="处方药">
+            <input type="radio" name="classification" value="0" title="非处方药" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    {% if messages %}
+    {% for msg in messages %}
+    alert('{{msg.message}}');
+    {% endfor %}
+    {% endif %}
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

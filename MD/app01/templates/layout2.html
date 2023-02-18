@@ -1,0 +1,55 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>药品进销存管理系统</title>
+  <link rel="stylesheet" href="{% static '/css/layui/css/layui.css' %}">
+</head>
+<body>
+    <div>
+ <div>
+<ul class="layui-nav layui-nav-tree layui-nav-side layui-nav-child-c" lay-filter="demo" style="margin-right: 10px;">
+<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+    <a href="javascript:;"><img src="{% static '/img/9.png' %}" class="layui-nav-img"></a>
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">信息查询</a>
+    <dl class="layui-nav-child">
+      <dd><a href="/manage_index/">个人信息</a></dd>
+      <dd><a href="/manage_log/">员工日志</a></dd>
+      <dd><a href="/manage_index/god/">购买记录</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">信息处理</a>
+    <dl class="layui-nav-child">
+      <dd><a href="/manage_index/worker/">员工信息</a></dd>
+      <dd><a href="">个人信息</a></dd>
+      <dd><a href="/manage_index/drugs/">药品信息</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item"><a href="">产品</a></li>
+  <li class="layui-nav-item"><a href="">大数据</a></li>
+</ul>
+     </div>
+    <div style="margin-left:300px;margin-right:50px">
+        {% block content %}
+        {% endblock %}
+    </div>
+        </div>
+
+ 
+<script src="{% static '/js/layui.js' %}"></script>
+<script>
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+  
+  layer.msg('Hello World');
+});
+
+</script> 
+
+</body>
+</html>

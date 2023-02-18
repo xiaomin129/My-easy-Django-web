@@ -1,0 +1,51 @@
+﻿{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>登陆</title>
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+</head>
+
+<body>
+    <dev id="all">
+        <dev id="box">
+
+            <h1 id="name">药品进销存管理系统</h1><br />
+            <form method="post">
+                {% csrf_token %}
+                <dev>
+                    <span>
+                        用户名:
+                    </span>
+                    <input type="text" height="20" name="name" /><br />
+                </dev>
+                <dev>
+                    <span>
+                        密码:&nbsp;&nbsp;
+                    </span>
+                    <input type="password" name="pwd" />
+                </dev>
+                <dev>
+                    <input type="radio" value="menber" name="login" checked />员工&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="admin" name="login" />管理员
+                </dev>
+                <dev>
+                    <input type="submit" value="登陆" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" />
+                </dev>
+
+            </form>
+
+        </dev>
+
+    </dev>
+</body>
+<script>
+    {% if messages %}
+    {% for msg in messages %}
+    alert('{{msg.message}}');
+    {% endfor %}
+    {% endif %}
+</script>
+</html>

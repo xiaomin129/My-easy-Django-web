@@ -1,0 +1,97 @@
+﻿{% extends 'layout.html' %}
+
+{% block content %}
+
+<form class="layui-form" method="post" action="">
+    {% csrf_token %}
+    <div>
+        <font size="6">&nbsp&nbsp&nbsp&nbsp销售登记</font>
+    </div>
+    <div>&nbsp</div><br />
+    <div class="layui-form-item">
+        <label class="layui-form-label">药品名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" id="name" required lay-verify="required" placeholder="请输入药品名" autocomplete="off" class="layui-input" onblur="sum();">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">数量</label>
+        <div class="layui-input-inline">
+            <input type="number" min="0" name="num" id="num" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input" onblur="sum();">
+        </div>
+        <div class="layui-form-mid layui-word-aux">请输入药品数量</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">总价</label>
+        {% if pricesum %}
+        <font size="6" id="pricesum">{{pricesum}}</font>
+        {% else %}
+        <font size="5">请输入正确的药品信息</font>
+        {% endif %}
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">药品类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="classification" value=1 title="处方药">
+            <input type="radio" name="classification" value=0 title="非处方药" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">取药人姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="godname" placeholder="请输入取药人姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">取药人电话</label>
+        <div class="layui-input-inline">
+            <input type="tel" name="tel" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">请输入取药人电话号码</div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+</form>
+
+
+<script>    
+    //Demo
+    function sum() {
+        var name = document.getElementById('name').value;
+        var num = document.getElementById('num').value;
+        $.ajax({
+            url: '/index/drugs_out/',
+            type: "get",
+            data: {
+                name: name,
+                num: num
+            },
+            success: function () {
+                ;
+            }
+        })
+    }
+
+
+    {% if messages %}
+    {% for msg in messages %}
+    alert('{{msg.message}}');
+    {% endfor %}
+    {% endif %}
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

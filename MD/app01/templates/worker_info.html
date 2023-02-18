@@ -1,0 +1,59 @@
+﻿{% extends 'layout2.html' %}
+
+{% block content %}
+<div>
+    <font size="6">&nbsp&nbsp&nbsp&nbsp员工信息</font>
+</div>
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>员工编号</th>
+            <th>员工名</th>
+            <th>员工密码</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in queryset %}
+        <tr>
+            <td>{{obj.id}}</td>
+            <td>{{obj.name}}</td>
+            <td>{{obj.password}}</td>
+            <td>{{obj.age}}</td>
+            {% if obj.sex %}
+            <td>男</td>
+            {% else %}
+            <td>女</td>
+            {% endif %}
+            <td><a class="layui-btn layui-btn-sm layui-btn-danger" href="/del_worker/?nid={{obj.id}}">删除该员工信息</a></td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    <button type="button" class="layui-btn layui-btn-normal" onclick='location.href=("/add_worker/")'>添加员工</button>
+</div>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

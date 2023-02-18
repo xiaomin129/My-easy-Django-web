@@ -1,0 +1,28 @@
+﻿{% extends 'layout.html' %}
+
+{% block content %}
+
+<input type="number" min="0" name="num" id="num" required lay-verify="required" placeholder="请输入整数" autocomplete="off" class="layui-input" onblur="sum();">
+
+
+<script>
+    function sum() {
+        var n2 = document.getElementById('num').value;
+        console.log(n2);
+        $.ajax({
+            url: '/cookie/',
+            type: "get",
+            data: {
+                n1: n2
+            },
+            success: function () {
+                var n1 = n2;
+                console.log(n1);
+            }
+        })
+    }
+</script>
+
+
+
+{% endblock %}
